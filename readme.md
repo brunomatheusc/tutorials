@@ -3,7 +3,11 @@ In this repository I put the learning codes that I get through videos or post le
 
 ## Projects in this repository
 
-- [angular9-cod3r](./angular9-cod3r)
+- [angular9-cod3r](./angular9-cod3r) by Cod3r
+- [flappy-bird](./flappy-bird) by Cod3er
+- [nubank](./nubankclone) by Rocketseat
+- [picpay](./picpay) by Mateus Silva
+- [rocketshoes](./tutorials/rocketshoes) by Rocketseat
  
 
 ## 🧾 Licença
