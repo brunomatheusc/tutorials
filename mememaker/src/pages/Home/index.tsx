@@ -6,14 +6,6 @@ import qs from 'qs';
 import logo from '../../assets/logo.svg';
 import api from '../../services/api';
 
-interface IProps {
-    data: IData;
-}
-
-interface IData {
-    memes: ITemplate[];
-}
-
 interface ITemplate {
     id: number;
     name: string;
