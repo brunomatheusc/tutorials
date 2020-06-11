@@ -1,6 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.div`
+interface IWrapper {
+    generated?: boolean;
+}
+
+export const Wrapper = styled.div<IWrapper>`
     width: 100%;
     height: 100vh;
     display: flex;
@@ -8,13 +12,28 @@ export const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
 
+    ${({ generated }) => generated && css`
+        /* margin: 50px 0; */
+    `}
+
     img {
         margin-top: 30px;
+    }
+
+    @media(max-width: 340px) {
+        img {
+            width: 80%;
+        }
     }
 `;
 
 export const Meme = styled.img`
     height: 400px;
+
+    @media(max-width: 1000px) {
+        height: 200px;
+        width: 100%;
+    }
 `;
 
 export const Card = styled.div`
@@ -29,6 +48,10 @@ export const Card = styled.div`
         font-size: 22px;
         color: #392d2d;
         margin-bottom: 10px;
+    }
+
+    @media(max-width: 1000px) {
+        width: 90%;
     }
 `;
 
@@ -83,5 +106,9 @@ export const Button = styled.button`
 
     &:hover {
         background: #3672a3;
+    }
+
+    & + & {
+        margin-top: 20px;
     }
 `;

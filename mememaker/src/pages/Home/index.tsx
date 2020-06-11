@@ -63,19 +63,32 @@ const Home: FC = () => {
         setGeneratedMeme(url);
     }
 
+    async function handleDownload() {
+        let blob = await fetch(generatedMeme).then(r => r.blob());
+        const url = window.URL.createObjectURL(blob);
+
+        let a = document.createElement('a');
+
+        a.href = url;
+        a.download = 'meme.jpg';
+        document.body.appendChild(a);
+        a.click();
+    }
+
     return (
         <>
-            <Wrapper>
+            <Wrapper generated={ generatedMeme ? true : false }>
                 <img src={ logo } alt="MemeMaker"/>
 
                 <Card>
-                    { generatedMeme && (
+                    { generatedMeme ? (
                         <>
                             <Meme src={ generatedMeme } alt="Generated Meme"/>
                             <Button onClick={ handleReset }>Criar outro meme</Button>
+                            <Button onClick={ handleDownload }>Download meme</Button>
                         </>
-                    )}
-                    { !generatedMeme && (
+                    )
+                    : (
                         <>
                             <h2>Selecione um template</h2>
         
