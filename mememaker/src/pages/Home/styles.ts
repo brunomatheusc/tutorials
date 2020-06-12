@@ -13,12 +13,8 @@ export const Wrapper = styled.div<IWrapper>`
     justify-content: center;
 
     ${({ generated }) => generated && css`
-        /* margin: 50px 0; */
+        margin: 50px 0;
     `}
-
-    img {
-        margin-top: 30px;
-    }
 
     @media(max-width: 340px) {
         img {
@@ -30,15 +26,25 @@ export const Wrapper = styled.div<IWrapper>`
 export const Meme = styled.img`
     height: 400px;
 
-    @media(max-width: 1000px) {
-        height: 200px;
+    @media(max-width: 700px) {
         width: 100%;
+        height: 250px;
     }
+`;
+
+export const SelectedMeme = styled.img`
+    width: 100%;
+    height: 500px;
+
+    @media(max-width: 700px) {
+        height: 250px;
+    }
+
 `;
 
 export const Card = styled.div`
     background: #fff;
-    width: 550px;
+    width: 500px;
     border-radius: 8px;
     padding: 20px;
     margin: 20px 0;
@@ -103,6 +109,7 @@ export const Button = styled.button`
     color: #fff;
     font-weight: bold;
     transition: background 0.2s ease-in;
+    margin-top: 10px;
 
     &:hover {
         background: #3672a3;

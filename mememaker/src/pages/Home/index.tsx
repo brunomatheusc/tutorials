@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { Wrapper, Card, Templates, Form, Button, Meme } from './styles';
+import { Wrapper, Card, Templates, Form, Button, Meme, SelectedMeme } from './styles';
+import {uuid} from 'uuidv4';
 
 import qs from 'qs';
 
@@ -18,6 +19,7 @@ const Home: FC = () => {
     const [selectedTemplate, setSelectedTemplate] = useState<ITemplate>();
     const [boxes, setBoxes] = useState<string[]>([]);
     const [generatedMeme, setGeneratedMeme] = useState<string>('');
+    const [imageUrl, setImageUrl] = useState<string>('');
 
     useEffect(() => {
         (async () => {
@@ -31,12 +33,28 @@ const Home: FC = () => {
     const handleInputChange = (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
         const newValues = boxes;
         newValues[index] = e.target.value;
+
         setBoxes(newValues);
+    }
+
+    async function handleOnBlur() {
+        const params = qs.stringify({
+            template_id: selectedTemplate?.id,
+            username: 'vikayel543',
+            password: 'vikayel543',
+            boxes: boxes.map(text => ({ text })),
+        });
+
+        const response = await api.get(`/caption_image?${params}`);
+        const { data: { url }} = response.data;
+        
+        setImageUrl(url);
     }
 
     function handleSelectTemplate(template: ITemplate) {
         setSelectedTemplate(template);
         setBoxes([]);
+        setImageUrl(template.url);
     }
 
     function handleReset() {
@@ -58,8 +76,6 @@ const Home: FC = () => {
         const response = await api.get(`/caption_image?${params}`);
         const { data: { url }} = response.data;
 
-        console.log(response);
-
         setGeneratedMeme(url);
     }
 
@@ -70,7 +86,7 @@ const Home: FC = () => {
         let a = document.createElement('a');
 
         a.href = url;
-        a.download = 'meme.jpg';
+        a.download = uuid() + 'meme.jpg';
         document.body.appendChild(a);
         a.click();
     }
@@ -102,11 +118,13 @@ const Home: FC = () => {
         
                             { selectedTemplate && (
                                 <>
+                                    <SelectedMeme src={ imageUrl } alt={ selectedTemplate.name } />
+
                                     <h2>Textos</h2>
         
                                     <Form onSubmit={ handleSubmit }>
                                         { (new Array(selectedTemplate.box_count).fill('').map((_, index) => (
-                                            <input type="text" key={index} placeholder={ `Text #${index + 1}`} onChange={ handleInputChange(index) } />
+                                            <input type="text" key={index} onBlur={ handleOnBlur } placeholder={ `Text #${index + 1}`} onChange={ handleInputChange(index) } />
                                         )))}
         
                                         <Button type="submit">MakeMyMeme</Button>
