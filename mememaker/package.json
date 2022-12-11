@@ -12,7 +12,7 @@
     "@types/react-dom": "^16.9.0",
     "axios": "^0.19.2",
     "image-downloader": "^4.0.1",
-    "qs": "^6.9.4",
+    "qs": "^6.9.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-download-link": "^2.3.0",
